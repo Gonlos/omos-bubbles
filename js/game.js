@@ -27,29 +27,28 @@ Game.prototype.start = function () {
     this.clear();
     this.moveAll();
     this.drawAll();
-  }.bind(this),1000)
+  }.bind(this),1000/3)
 }
 Game.prototype.reset = function () {
   this.enemies = [];
-  this.crossHair = new CrossHair(this);
-  // this.player=new Player(this)
+  
+  this.player=new Player(this)
 }
 Game.prototype.clear = function () {
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 }
 Game.prototype.moveAll = function () {
   this.move();
-  // this.crossHair.move();
-  // this.player.move();
+  this.player.move();
 }
 Game.prototype.drawAll = function () {
   this.draw();
-  this.crossHair.draw();
-  // this.player.draw;
+  this.player.draw();
 }
 Game.prototype.draw = function () {
-  console.log("aaaa")
+  context.fillStyle='black';
   context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  
   context.fill();
   
 }
