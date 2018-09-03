@@ -51,6 +51,7 @@ Game.prototype.moveAll = function () {
   this.player.move();
   this.player.crossHair.move()
   this.moveBubbles();
+  this.collisions();
 }
 Game.prototype.drawAll = function () {
   this.draw();
@@ -92,4 +93,22 @@ Game.prototype.drawBackground=function(){
       this.background.data[i+3]=255;
     }
   }
+}
+Game.prototype.collisions=function(){
+  this.bubbles.forEach(function(bubble,index,bubbles) {
+    for(var i=index+1,module;i<bubbles.length;i++){
+      //modulo 2 puntos < suma sus radios
+      module=Trig.getVector(bubble.x-bubbles[i].x,bubble.y-bubbles[i].y).module
+      if(module<bubble.r+bubbles[i].r){
+        console.error("BABBBBOOOOOOOOMMMMM")
+        if(bubble.r<bubbles[i].r){
+          console.log(bubbles[i].id,"absorbe")
+          // bubbles[i].absorb(bubble)
+        }else{
+          console.log(bubble.id,"absorbe")
+          // bubble.absorb(bubbles[i])
+        }
+      }
+    }
+  });
 }
