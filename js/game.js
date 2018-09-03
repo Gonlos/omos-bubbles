@@ -38,7 +38,7 @@ Game.prototype.stop=function(){
 }
 Game.prototype.reset = function () {
   this.bubbles = [];
-  this.player=new Player(this)
+  this.player=new Player(this,0)
   this.bubbles.push(this.player)
 }
 

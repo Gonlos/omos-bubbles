@@ -12,7 +12,7 @@ var Bubble = function(game, id, options) {
     }
   */
   this.game = game;
-  this.id = Math.floor(Math.random() * 10 ** 10);
+  this.id = id;
   this.vx = 0;
   this.vy = options.vx || 0;
   this.r = options.r || 5;
