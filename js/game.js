@@ -14,8 +14,8 @@ var Game = function () {
   }
   this.intervalID = 0;
   this.time=0;
-  this.reset();
   this.bubbles=[]
+  this.reset();
   this.drawBackground()
 }
 Game.prototype.move = function () {
@@ -37,9 +37,9 @@ Game.prototype.stop=function(){
   clearInterval(this.intervalID)
 }
 Game.prototype.reset = function () {
-  this.enemies = [];
-  
+  this.bubbles = [];
   this.player=new Player(this)
+  this.bubbles.push(this.player)
 }
 
 Game.prototype.clear = function () {
