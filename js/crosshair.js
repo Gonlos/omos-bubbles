@@ -27,13 +27,6 @@ CrossHair.prototype.draw = function () {
   this.game.context.translate(-this.position.x, -this.position.y);
   this.game.context.drawImage(this.img, this.position.x - this.w / 1.9, this.position.y - this.h / 3.8 + this.distance, this.w, this.h);
   this.game.context.resetTransform();
-
-  // this.game.context.beginPath();
-  // this.game.context.moveTo(this.direction.x, this.direction.y);
-  // this.game.context.lineTo(this.position.x, this.position.y);
-  // this.game.context.strokeStyle='white';
-  // this.game.context.stroke();
-
 }
 CrossHair.prototype.move = function () {
   this.position = { x: this.mouse.x - this.game.canvas.offsetLeft, y: this.mouse.y - this.game.canvas.offsetTop } //onmousemove document
@@ -53,9 +46,9 @@ CrossHair.prototype.fart = function (massArg) {
     direction: this.direction,
     m:massArg
   }
-  this.game.player.pushPlayer(this.f,this.angle)
+  this.game.player.boost(this.f,this.angle)
   this.game.bubbles.push(new Bubble(this.game,this.game.bubbles.length,options))
-  this.game.bubbles[this.game.bubbles.length-1].pushBubble(-this.f,this.angle);
+  this.game.bubbles[this.game.bubbles.length-1].boost(-this.f,this.angle);
 }
 CrossHair.prototype.mouseMove=function(e){
   this.mouse=e;
