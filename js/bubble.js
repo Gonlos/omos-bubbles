@@ -21,29 +21,30 @@ var Bubble = function(game, id, options) {
   this.x = options.x || 0;
   this.y = options.y || 0;
   this.a = 0;
-  this.friction = 0.981;
+  this.friction = 0.979;
+  console.log(options.r)
 };
 Bubble.prototype.move = function() {
+  var a;
+  this.a *= this.friction;
   this.vx *= this.friction;
   this.vy *= this.friction;
-  this.a *= this.friction;
-  ax = this.a * Math.cos((this.angle * Math.PI) / 180);
-  ay = this.a * Math.sin((-this.angle * Math.PI) / 180);
-  //vx=v*cos(ang*pi/180) vy=v*sin(ang*pi/180)
+  a=Trig.getXY(this.a,this.angle)
   if (this.x + this.r > this.game.canvas.width || this.x - this.r < 0) {
     this.vx *= -1;
-    ax *= -0.5;
+    a.x *= -0.5;
   }
   if (this.y - this.r < 0 || this.y + this.r > this.game.canvas.height) {
     this.vy *= -1;
-    ay *= -0.5;
+    a.y *= -0.5;
   }
-  this.vx += ax;
-  this.vy += ay;
-  this.x += this.vx; //* Math.cos(this.angle * Math.PI / 180);
-  this.y += this.vy; //* Math.sin(-this.angle * Math.PI / 180);
-  this.a = Math.sqrt(ax ** 2 + ay ** 2);
-  this.angle = (Math.atan2(-ay, ax) * 180) / Math.PI;
+  this.vx += a.x;
+  this.vy += a.y;
+  this.x += this.vx;
+  this.y += this.vy;
+  a = Trig.getVector(a.x,a.y);
+  this.a=a.module;
+  this.angle=a.angle;
 };
 Bubble.prototype.draw = function() {
   context.moveTo(this.x, this.y);

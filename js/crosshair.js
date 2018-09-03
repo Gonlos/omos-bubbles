@@ -43,8 +43,7 @@ CrossHair.prototype.fart = function (massArg) {
     angle: this.angle,
     x:this.game.player.x + game.player.r * Math.cos(this.angle * Math.PI / 180),
     y:this.game.player.y + game.player.r * Math.sin(-this.angle * Math.PI / 180),
-    direction: this.direction,
-    m:massArg
+    r:massArg
   }
   this.game.player.boost(this.f,this.angle)
   this.game.bubbles.push(new Bubble(this.game,this.game.bubbles.length,options))
