@@ -16,21 +16,7 @@ var Game = function () {
   this.time=0;
   this.reset();
   this.bubbles=[]
-  this.background=context.createImageData(this.canvas.width, this.canvas.height);
-  for (var i = 0; i < this.background.data.length; i+=4) {
-    if(Math.floor(Math.random()*100)<1){
-      random=Math.floor(Math.random()*155+0)
-      this.background.data[i]=random
-      this.background.data[i+1]=random;
-      this.background.data[i+2]=random;
-      this.background.data[i+3]=255;
-    }else{
-      this.background.data[i]=0;
-      this.background.data[i+1]=0;
-      this.background.data[i+2]=0;
-      this.background.data[i+3]=255;
-    }
-  }
+  this.drawBackground()
 }
 Game.prototype.move = function () {
 
@@ -69,14 +55,14 @@ Game.prototype.moveAll = function () {
 Game.prototype.drawAll = function () {
   this.draw();
   this.player.draw();
+  this.player.crossHair.draw()
   this.drawBubbles();
 }
 Game.prototype.draw = function () {
-  context.fillStyle='black';
+  
+  // context.fillStyle='black';
   context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  
   context.fill();
-  
   context.putImageData(this.background,0,0);
 }
 Game.prototype.drawBubbles=function(){
@@ -89,4 +75,21 @@ Game.prototype.moveBubbles=function(){
   this.bubbles.forEach(function(bubble){
     bubble.move()
   })
+}
+Game.prototype.drawBackground=function(){
+  this.background=context.createImageData(this.canvas.width, this.canvas.height);
+  for (var i = 0; i < this.background.data.length; i+=4) {
+    if(Math.floor(Math.random()*100)<1){
+      random=Math.floor(Math.random()*155+0)
+      this.background.data[i]=random
+      this.background.data[i+1]=random;
+      this.background.data[i+2]=random;
+      this.background.data[i+3]=255;
+    }else{
+      this.background.data[i]=0;
+      this.background.data[i+1]=0;
+      this.background.data[i+2]=0;
+      this.background.data[i+3]=255;
+    }
+  }
 }
