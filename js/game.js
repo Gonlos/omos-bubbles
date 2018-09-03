@@ -17,6 +17,7 @@ var Game = function () {
   this.bubbles=[]
   this.reset();
   this.drawBackground()
+  this.bubblesId=0
 }
 Game.prototype.move = function () {
 
@@ -25,7 +26,7 @@ Game.prototype.start = function () {
   this.time=new Date();
   this.intervalID = setInterval(function () {
     var now=new Date();
-    if(now.getTime()-this.time.getTime()>10000){
+    if(now.getTime()-this.time.getTime()>30000){
       this.stop()
     }
     this.clear();
@@ -95,20 +96,26 @@ Game.prototype.drawBackground=function(){
   }
 }
 Game.prototype.collisions=function(){
-  this.bubbles.forEach(function(bubble,index,bubbles) {
-    for(var i=index+1,module;i<bubbles.length;i++){
-      //modulo 2 puntos < suma sus radios
-      module=Trig.getVector(bubble.x-bubbles[i].x,bubble.y-bubbles[i].y).module
-      if(module<bubble.r+bubbles[i].r){
-        console.error("BABBBBOOOOOOOOMMMMM")
-        if(bubble.r<bubbles[i].r){
-          console.log(bubbles[i].id,"absorbe")
-          // bubbles[i].absorb(bubble)
+  var bubblesToDelete=[]
+  for(var i = 0;i < this.bubbles.length; i++){
+    var bubble=this.bubbles[i]
+    for(var j=i+1,distance;j<this.bubbles.length;j++){
+      var bubble2=this.bubbles[j]
+      distance=Trig.getVector(bubble.x-bubble2.x,bubble.y-bubble2.y).module
+      if(distance<bubble.r+bubble2.r){
+        if(bubble.r<bubble2.r){
+          if(bubble2.absorb(bubble,distance)){
+            bubblesToDelete.push(bubble.id)
+          }
         }else{
-          console.log(bubble.id,"absorbe")
-          // bubble.absorb(bubbles[i])
+          if(bubble.absorb(bubble2,distance)){
+            bubblesToDelete.push(bubble2.id)
+          }
         }
       }
     }
-  });
+  }
+  for(i = 0;i<bubblesToDelete.length;i++){
+     this.bubbles.splice(bubblesToDelete[i],1)
+  }
 }

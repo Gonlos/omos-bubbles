@@ -22,7 +22,6 @@ var Bubble = function(game, id, options) {
   this.y = options.y || 0;
   this.a = 0;
   this.friction = 0.979;
-  console.log(options.r)
 };
 Bubble.prototype.move = function() {
   var a;
@@ -65,3 +64,17 @@ Bubble.prototype.boost = function(fArg, angleArg) {
   this.a = aPlayer.module / this.m;
   this.angle = aPlayer.angle;
 };
+Bubble.prototype.absorb=function(bubble,distance){
+  absorcion= (distance-bubble.r-this.r)/20
+  console.log("absorcion",absorcion,bubble.r)
+  if(absorcion<0){
+    this.r-=absorcion
+    bubble.r+=absorcion
+  }
+  if(bubble.r<0){
+    bubble.r=0
+    return bubble.id
+  }
+  return false
+  
+}
