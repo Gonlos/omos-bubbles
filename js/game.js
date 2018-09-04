@@ -1,16 +1,12 @@
 var Game = function () {
-  this.canvas = document.getElementById("game");
-  this.context = canvas.getContext("2d");
-  this.zoom = 1;
-  this.canvas.width=window.innerWidth;
-  this.canvas.height=window.innerHeight;
-  this.w = this.canvas.width * this.zoom;
-  this.h = this.canvas.height * this.zoom;
-  this.offsetX = (this.w - this.canvas.width)/2;
-  this.offsetY = (this.h - this.canvas.height)/2;
-  this.center = {
-    x: this.canvas.width / 2 + this.offsetX,  
-    y: this.canvas.height / 2 + this.offsetY
+  this.canvas = document.createElement("canvas")
+  this.context = this.canvas.getContext("2d");
+  this.zoom = .75 ;
+  this.canvas.width=window.innerWidth*this.zoom;
+  this.canvas.height=window.innerHeight*this.zoom;
+   this.center = {
+    x: this.canvas.width / 2,  
+    y: this.canvas.height / 2
   }
   this.reset();
 }
@@ -30,8 +26,8 @@ Game.prototype.stop=function(){
 }
 Game.prototype.reset = function () {
   this.bubbles = [];
+  this.camera=new Camera(this)
   this.background=new Background(this)
-  // this.player=new Player(this)
   this.bubbles.push(new Player(this))
   this.stage=new Stage(this)
 }
@@ -41,10 +37,12 @@ Game.prototype.moveAll = function () {
   // this.player.move();
   this.moveBubbles();
   this.collisions();
+  this.camera.move()
 }
 Game.prototype.drawAll = function () {
   this.background.draw();
   this.drawBubbles();
+  this.camera.draw();
 }
 Game.prototype.drawBubbles=function(){
   this.bubbles.forEach(function(bubble){
@@ -83,12 +81,13 @@ Game.prototype.collisions=function(){
   })
 }
 Game.prototype.move=function(){
-  this.w = this.canvas.width * this.zoom;
-  this.h = this.canvas.height * this.zoom;
-  this.offsetX = (this.w - this.canvas.width)/2;
-  this.offsetY = (this.h - this.canvas.height)/2;
+  this.canvas.width=window.innerWidth*this.zoom;
+  this.canvas.height=window.innerHeight*this.zoom;
   this.center = {
-    x: this.canvas.width / 2 + this.offsetX,  
-    y: this.canvas.height / 2 + this.offsetY
+    x: this.canvas.width / 2,  
+    y: this.canvas.height / 2
   }
+
+
+
 }

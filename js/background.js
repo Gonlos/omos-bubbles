@@ -3,7 +3,7 @@ var Background=function(game){
   this.createBackground();
 }
 Background.prototype.createBackground=function(){
-  this.background=this.game.context.createImageData(this.game.w, this.game.h);
+  this.background=this.game.context.createImageData(this.game.canvas.width, this.game.canvas.height);
   for (var i = 0; i < this.background.data.length; i+=4) {
     if(Math.floor(Math.random()*100)<1){
       random=Math.floor(Math.random()*155+0)
@@ -21,17 +21,17 @@ Background.prototype.createBackground=function(){
 }
 Background.prototype.draw = function () {
   
-  context.putImageData(this.background,0,0,0,0,this.game.w,this.game.h);
+  context.putImageData(this.background,0,0,0,0,this.game.canvas.width,this.game.canvas.height);
   context.strokeStyle='white';
-  context.strokeRect(10, 10, this.game.w-20, this.game.h-20);
+  context.strokeRect(10, 10, this.game.canvas.width-20, this.game.canvas.height-20);
   context.beginPath();
   context.moveTo(this.game.center.x, 0);
-  context.lineTo(this.game.center.x, this.game.h);
-  context.closePath();
-  context.stroke();
-  context.beginPath();
+  context.lineTo(this.game.center.x, this.game.canvas.height);
+  // context.closePath();
+  // context.stroke();
+  // context.beginPath();
   context.moveTo(0, this.game.center.y);
-  context.lineTo(this.game.w, this.game.center.y);
+  context.lineTo(this.game.canvas.width, this.game.center.y);
   context.closePath();
   context.stroke();
   

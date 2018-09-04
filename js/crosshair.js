@@ -55,11 +55,12 @@ CrossHair.prototype.mouseMove=function(e){
   this.mouse=e;
 }
 CrossHair.prototype.start=function(){
-  this.game.canvas.addEventListener("mousemove",function(e){
+  console.log(this.game)
+  this.game.camera.canvasCam.addEventListener("mousemove",function(e){
     e.preventDefault()
     this.mouse=e
   }.bind(this))
-  this.game.canvas.addEventListener("dblclick",function(e){
+  this.game.camera.canvasCam.addEventListener("dblclick",function(e){
     e.preventDefault()
   })
 }

@@ -31,11 +31,11 @@ Bubble.prototype.move = function() {
   this.vx *= this.friction;
   this.vy *= this.friction;
   a=Trig.getXY(this.a,this.angle)
-  if (this.x + this.r > this.game.w || this.x - this.r < 0) {
+  if (this.x + this.r > this.game.canvas.width || this.x - this.r < 0) {
     this.vx *= -1;
     a.x *= -0.5;
   }
-  if (this.y - this.r < 0 || this.y + this.r > this.game.h) {
+  if (this.y - this.r < 0 || this.y + this.r > this.game.canvas.height) {
     this.vy *= -1;
     a.y *= -0.5;
   }
@@ -67,11 +67,10 @@ Bubble.prototype.boost = function(fArg, angleArg) {
   this.angle = aPlayer.angle;
 };
 Bubble.prototype.absorb=function(bubble,distance){
-  absorcion= (distance-bubble.r-this.r)
-  console.log("absorcion",absorcion,bubble.r)
-  if(absorcion<0){
-    this.m-=absorcion
-    bubble.m+=absorcion
+  var absorption= (distance-bubble.r-this.r)
+  if(absorption<0){
+    this.m-=absorption
+    bubble.m+=absorption
   }
   if(bubble.m<0){
     bubble.r=0

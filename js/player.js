@@ -26,10 +26,9 @@ Player.prototype.fart = function () {
   this.crossHair.fart(volume);
   this.m-=volume
   this.r-=volume
-  console.log(this.m)
 }
 Player.prototype.start=function(){
-  this.game.canvas.addEventListener("click",function(e){
+  this.game.camera.canvasCam.addEventListener("click",function(e){
     this.fart()
   }.bind(this))
 }
