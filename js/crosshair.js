@@ -59,7 +59,7 @@ CrossHair.prototype.start=function(){
     e.preventDefault()
     this.mouse=e
   }.bind(this))
-  this.game.canvas.addEventListener("dblclick",function(){
+  this.game.canvas.addEventListener("dblclick",function(e){
     e.preventDefault()
   })
 }
