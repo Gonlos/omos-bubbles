@@ -32,7 +32,7 @@ Game.prototype.start = function () {
     this.clear();
     this.moveAll();
     this.drawAll();
-  }.bind(this),1000/30)
+  }.bind(this),1000/60)
 }
 Game.prototype.stop=function(){
   clearInterval(this.intervalID)
@@ -96,7 +96,6 @@ Game.prototype.drawBackground=function(){
   }
 }
 Game.prototype.collisions=function(){
-  var bubblesToDelete=[]
   for(var i = 0;i < this.bubbles.length; i++){
     var bubble=this.bubbles[i]
     for(var j=i+1,distance;j<this.bubbles.length;j++){
@@ -104,18 +103,14 @@ Game.prototype.collisions=function(){
       distance=Trig.getVector(bubble.x-bubble2.x,bubble.y-bubble2.y).module
       if(distance<bubble.r+bubble2.r){
         if(bubble.r<bubble2.r){
-          if(bubble2.absorb(bubble,distance)){
-            bubblesToDelete.push(bubble.id)
-          }
+          bubble2.absorb(bubble,distance)
         }else{
-          if(bubble.absorb(bubble2,distance)){
-            bubblesToDelete.push(bubble2.id)
-          }
+          bubble.absorb(bubble2,distance)
         }
       }
     }
   }
-  for(i = 0;i<bubblesToDelete.length;i++){
-     this.bubbles.splice(bubblesToDelete[i],1)
-  }
+  this.bubbles=this.bubbles.filter(function(bubble){
+      return bubble.r>0
+  })
 }
