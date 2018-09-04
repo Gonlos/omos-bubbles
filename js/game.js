@@ -2,14 +2,14 @@ var Game = function () {
   this.canvas = document.getElementById("game");
   this.context = canvas.getContext("2d");
   this.zoom = 1;
-  this.canvas.width=800;
-  this.canvas.height=400;
+  this.canvas.width=window.innerWidth;
+  this.canvas.height=window.innerHeight;
   this.w = this.canvas.width * this.zoom;
   this.h = this.canvas.height * this.zoom;
-  this.offsetX = this.w - this.canvas.width;
-  this.offsetY = this.h - this.canvas.height;
+  this.offsetX = (this.w - this.canvas.width)/2;
+  this.offsetY = (this.h - this.canvas.height)/2;
   this.center = {
-    x: this.canvas.width / 2 + this.offsetX,
+    x: this.canvas.width / 2 + this.offsetX,  
     y: this.canvas.height / 2 + this.offsetY
   }
   this.reset();
@@ -31,32 +31,36 @@ Game.prototype.stop=function(){
 Game.prototype.reset = function () {
   this.bubbles = [];
   this.background=new Background(this)
-  this.player=new Player(this)
-  this.bubbles.push(this.player)
+  // this.player=new Player(this)
+  this.bubbles.push(new Player(this))
   this.stage=new Stage(this)
 }
 Game.prototype.moveAll = function () {
+  this.move();
   this.background.move();
-  this.player.move();
-  this.player.crossHair.move()
+  // this.player.move();
   this.moveBubbles();
   this.collisions();
 }
 Game.prototype.drawAll = function () {
   this.background.draw();
-  this.player.draw();
-  this.player.crossHair.draw()
   this.drawBubbles();
 }
 Game.prototype.drawBubbles=function(){
   this.bubbles.forEach(function(bubble){
     // console.log(bubble)
     bubble.draw()
+    if(bubble.__proto__.constructor.name=="Player"){
+      bubble.crossHair.draw();
+    }
   })
 }
 Game.prototype.moveBubbles=function(){
   this.bubbles.forEach(function(bubble){
     bubble.move()
+    if(bubble.__proto__.constructor.name=="Player"){
+      bubble.crossHair.move();
+    }
   })
 }
 Game.prototype.collisions=function(){
@@ -77,4 +81,14 @@ Game.prototype.collisions=function(){
   this.bubbles=this.bubbles.filter(function(bubble){
       return bubble.r>0
   })
+}
+Game.prototype.move=function(){
+  this.w = this.canvas.width * this.zoom;
+  this.h = this.canvas.height * this.zoom;
+  this.offsetX = (this.w - this.canvas.width)/2;
+  this.offsetY = (this.h - this.canvas.height)/2;
+  this.center = {
+    x: this.canvas.width / 2 + this.offsetX,  
+    y: this.canvas.height / 2 + this.offsetY
+  }
 }

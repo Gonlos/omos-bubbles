@@ -20,6 +20,7 @@ var CrossHair = function (game) {
 
   }
   this.mouse={x:0,y:0}
+  this.start();
 }
 CrossHair.prototype.draw = function () {
   this.game.context.translate(this.position.x, this.position.y);
@@ -30,25 +31,35 @@ CrossHair.prototype.draw = function () {
 }
 CrossHair.prototype.move = function () {
   this.position = { x: this.mouse.x - this.game.canvas.offsetLeft, y: this.mouse.y - this.game.canvas.offsetTop } //onmousemove document
-  this.direction = { x: this.game.player.x, y: this.game.player.y }
+  this.direction = { x: this.game.bubbles[0].x, y: this.game.bubbles[0].y }
 
   this.distance = Math.sqrt((this.position.x - this.direction.x) ** 2 + (this.position.y - this.direction.y) ** 2)
-  this.distance = (this.distance >= this.game.player.r + this.offset) ? 0 : this.game.player.r - this.distance + this.offset;
+  this.distance = (this.distance >= this.game.bubbles[0].r + this.offset) ? 0 : this.game.bubbles[0].r - this.distance + this.offset;
 
   this.angle = (Math.atan2(-(this.position.y - this.direction.y), (this.position.x - this.direction.x)) * 180 / Math.PI) ;
 
 }
-CrossHair.prototype.fart = function (rArg) {
+CrossHair.prototype.fart = function (massArg) {
   var options= {
     angle: this.angle,
-    x:this.game.player.x + game.player.r * Math.cos(this.angle * Math.PI / 180),
-    y:this.game.player.y + game.player.r * Math.sin(-this.angle * Math.PI / 180),
-    r:rArg
+    x:this.game.bubbles[0].x + game.bubbles[0].r * Math.cos(this.angle * Math.PI / 180),
+    y:this.game.bubbles[0].y + game.bubbles[0].r * Math.sin(-this.angle * Math.PI / 180),
+    r:Math.log(massArg),
+    m:massArg
   }
-  this.game.player.boost(this.f,this.angle)
+  this.game.bubbles[0].boost(this.f,this.angle)
   this.game.bubbles.push(new Bubble(this.game,options))
   this.game.bubbles[this.game.bubbles.length-1].boost(-this.f,this.angle);
 }
 CrossHair.prototype.mouseMove=function(e){
   this.mouse=e;
+}
+CrossHair.prototype.start=function(){
+  this.game.canvas.addEventListener("mousemove",function(e){
+    e.preventDefault()
+    this.mouse=e
+  }.bind(this))
+  this.game.canvas.addEventListener("dblclick",function(){
+    e.preventDefault()
+  })
 }

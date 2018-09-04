@@ -4,14 +4,16 @@ var Player = function (game,id) {
   this.game=game
   this.x = this.game.center.x;
   this.y = this.game.center.y;
-  this.r = 50;
+  this.r = 1000;
   this.m = this.r;
+  this.r=Math.log(this.m)
   this.vx = 0;
   this.vy = 0;
   this.a = 0;
   this.angle = 0;
   //solo player
   this.crossHair = new CrossHair(game);
+  this.start();
 }
 Player.prototype=Object.create(Bubble.prototype);
 Player.prototype.constructor=Player;
@@ -25,4 +27,9 @@ Player.prototype.fart = function () {
   this.m-=volume
   this.r-=volume
   console.log(this.m)
+}
+Player.prototype.start=function(){
+  this.game.canvas.addEventListener("click",function(e){
+    this.fart()
+  }.bind(this))
 }
