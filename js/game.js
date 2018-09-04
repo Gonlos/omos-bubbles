@@ -12,15 +12,7 @@ var Game = function () {
     x: this.canvas.width / 2 + this.offsetX,
     y: this.canvas.height / 2 + this.offsetY
   }
-  this.intervalID = 0;
-  this.time=0;
-  this.bubbles=[]
   this.reset();
-  this.drawBackground()
-  this.bubblesId=0
-}
-Game.prototype.move = function () {
-
 }
 Game.prototype.start = function () {
   this.time=new Date();
@@ -29,7 +21,6 @@ Game.prototype.start = function () {
     if(now.getTime()-this.time.getTime()>30000){
       this.stop()
     }
-    this.clear();
     this.moveAll();
     this.drawAll();
   }.bind(this),1000/60)
@@ -39,33 +30,23 @@ Game.prototype.stop=function(){
 }
 Game.prototype.reset = function () {
   this.bubbles = [];
-  this.player=new Player(this,0)
+  this.background=new Background(this)
+  this.player=new Player(this)
   this.bubbles.push(this.player)
+  this.stage=new Stage(this)
 }
-
-Game.prototype.clear = function () {
-  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-}
-
 Game.prototype.moveAll = function () {
-  this.move();
+  this.background.move();
   this.player.move();
   this.player.crossHair.move()
   this.moveBubbles();
   this.collisions();
 }
 Game.prototype.drawAll = function () {
-  this.draw();
+  this.background.draw();
   this.player.draw();
   this.player.crossHair.draw()
   this.drawBubbles();
-}
-Game.prototype.draw = function () {
-  
-  // context.fillStyle='black';
-  context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  context.fill();
-  context.putImageData(this.background,0,0);
 }
 Game.prototype.drawBubbles=function(){
   this.bubbles.forEach(function(bubble){
@@ -77,23 +58,6 @@ Game.prototype.moveBubbles=function(){
   this.bubbles.forEach(function(bubble){
     bubble.move()
   })
-}
-Game.prototype.drawBackground=function(){
-  this.background=context.createImageData(this.canvas.width, this.canvas.height);
-  for (var i = 0; i < this.background.data.length; i+=4) {
-    if(Math.floor(Math.random()*100)<1){
-      random=Math.floor(Math.random()*155+0)
-      this.background.data[i]=random
-      this.background.data[i+1]=random;
-      this.background.data[i+2]=random;
-      this.background.data[i+3]=255;
-    }else{
-      this.background.data[i]=0;
-      this.background.data[i+1]=0;
-      this.background.data[i+2]=0;
-      this.background.data[i+3]=255;
-    }
-  }
 }
 Game.prototype.collisions=function(){
   for(var i = 0;i < this.bubbles.length; i++){

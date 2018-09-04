@@ -4,7 +4,7 @@ var CrossHair = function (game) {
   this.y = 0;
   this.h = 30;
   this.w = 20;
-  this.f=2;
+  this.f=1;
   this.img = new Image()
   this.img.src = "./img/crosshair.png";
   this.angle = 0;
@@ -38,15 +38,15 @@ CrossHair.prototype.move = function () {
   this.angle = (Math.atan2(-(this.position.y - this.direction.y), (this.position.x - this.direction.x)) * 180 / Math.PI) ;
 
 }
-CrossHair.prototype.fart = function (massArg) {
+CrossHair.prototype.fart = function (rArg) {
   var options= {
     angle: this.angle,
     x:this.game.player.x + game.player.r * Math.cos(this.angle * Math.PI / 180),
     y:this.game.player.y + game.player.r * Math.sin(-this.angle * Math.PI / 180),
-    r:massArg
+    r:rArg
   }
   this.game.player.boost(this.f,this.angle)
-  this.game.bubbles.push(new Bubble(this.game,this.game.bubbles.length,options))
+  this.game.bubbles.push(new Bubble(this.game,options))
   this.game.bubbles[this.game.bubbles.length-1].boost(-this.f,this.angle);
 }
 CrossHair.prototype.mouseMove=function(e){

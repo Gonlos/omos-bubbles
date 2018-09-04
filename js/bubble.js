@@ -1,5 +1,5 @@
 // m=mass,r=radius,
-var Bubble = function(game, id, options) {
+var Bubble = function(game, options) {
   options = options ? options : {};
   /*
     options={
@@ -12,7 +12,6 @@ var Bubble = function(game, id, options) {
     }
   */
   this.game = game;
-  this.id = id;
   this.vx = 0;
   this.vy = options.vx || 0;
   this.r = options.r || 5;
@@ -21,7 +20,7 @@ var Bubble = function(game, id, options) {
   this.x = options.x || 0;
   this.y = options.y || 0;
   this.a = 0;
-  this.friction = 0.979;
+  this.friction = 0.989;
 };
 Bubble.prototype.move = function() {
   var a;
@@ -65,7 +64,7 @@ Bubble.prototype.boost = function(fArg, angleArg) {
   this.angle = aPlayer.angle;
 };
 Bubble.prototype.absorb=function(bubble,distance){
-  absorcion= (distance-bubble.r-this.r)/20
+  absorcion= (distance-bubble.r-this.r)/80
   console.log("absorcion",absorcion,bubble.r)
   if(absorcion<0){
     this.r-=absorcion
