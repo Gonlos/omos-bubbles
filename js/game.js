@@ -64,8 +64,10 @@ Game.prototype.moveBubbles=function(){
   })
 }
 Game.prototype.collisions=function(){
+  this.totalSize=0
   for(var i = 0;i < this.bubbles.length; i++){
     var bubble=this.bubbles[i]
+    this.totalSize+=bubble.m
     for(var j=i+1,distance;j<this.bubbles.length;j++){
       var bubble2=this.bubbles[j]
       distance=Trig.getVector(bubble.x-bubble2.x,bubble.y-bubble2.y).module

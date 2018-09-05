@@ -49,7 +49,8 @@ Bubble.prototype.move = function() {
 };
 Bubble.prototype.draw = function() {
   context.moveTo(this.x, this.y);
-  context.strokeStyle = "white";
+  
+  context.strokeStyle = this.proportionalColor();
   context.beginPath();
   context.arc(this.x, this.y, this.r, 0, Math.PI * 180, true);
   context.stroke();
@@ -98,8 +99,30 @@ Bubble.prototype.absorb=function(bubble,distance){
   if(bubble.m<0){
     bubble.r=0
     bubble.m=0
-    return bubble.id
   }
-  return false
+  this.a=f/(this.m*10)
+}
+Bubble.prototype.proportionalColor=function(){
+  //>to red <togreen =blue
+  var r=g=b="FF";
+  var playerSize=0
+  if(this.game.bubbles[0].__proto__.constructor.name=="Player"){
+    playerSize=this.game.bubbles[0].m
+  }
+
   
+  if(this.m<playerSize){
+    r="00"
+    g=Math.floor(((-125/playerSize)*this.m)+255)
+    g=(g<10)?"0"+g.toString(16):g.toString(16)
+    b="00"
+  }
+  if(this.m>playerSize){
+    r=Math.floor((80/(this.game.totalSize-playerSize)*this.m)+175)
+    r=(r<10)?"0"+r.toString(16):r.toString(16)
+    g="00"
+    b="00"
+  }
+  // console  .log("#"+r+g+b)
+  return "#"+r+g+b;
 }
