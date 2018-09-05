@@ -17,19 +17,19 @@ var Bubble = function(game, options) {
   this.r = options.r || 5;
   this.m = this.r;
   // r = log(m)
-  this.r=Math.log(this.m)+1
+  this.r=Math.log(this.m)*2
   this.angle = options.angle || 0;
   this.x = options.x || 0;
   this.y = options.y || 0;
   this.a = 0;
-  this.friction = 0.989;
+  this.friction = 0.01;
 };
 Bubble.prototype.move = function() {
-  this.r=Math.log(this.m)+1
+  this.r=Math.log(this.m)*2
   var a;
-  this.a *= this.friction;
-  this.vx *= this.friction;
-  this.vy *= this.friction;
+  this.a -= this.a*this.friction;
+  this.vx -= this.vx*this.friction/2;
+  this.vy -= this.vy*this.friction/2;
   a=Trig.getXY(this.a,this.angle)
   if (this.x + this.r > this.game.w || this.x - this.r < 0) {
     this.vx *= -1;
@@ -77,8 +77,8 @@ Bubble.prototype.collisionBoost=function(bubble){
   //a1=(f1-f2)/m1 a2=(f2-f1)/m2
   a1.x=(fx1+fx2)/this.m
   a1.y=(fy1+fy2)/this.m
-  a2.x=(fx2+fx1)/bubble.m
-  a2.y=(fy2+fy1)/bubble.m
+  a2.x=(fx2-fx1)/bubble.m
+  a2.y=(fy2-fy1)/bubble.m
   a1=Trig.getVector(a1.x,a1.y)
   a2=Trig.getVector(a2.x,a2.y)
   this.a=a1.module/2
@@ -88,8 +88,9 @@ Bubble.prototype.collisionBoost=function(bubble){
 
 }
 Bubble.prototype.absorb=function(bubble,distance){
-  absorcion= (distance-bubble.r-this.r)*2
+  absorcion= (distance-bubble.r-this.r)*4
   // console.log("absorcion",absorcion,bubble.r)
+  var f=this.m*this.a
   if(absorcion<0){
     this.m-=absorcion
     bubble.m+=absorcion

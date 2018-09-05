@@ -72,10 +72,10 @@ Game.prototype.collisions=function(){
       if(distance<bubble.r+bubble2.r){
         if(bubble.r<bubble2.r){
           bubble2.absorb(bubble,distance)
-          bubble2.collisionBoost(bubble)
+          // bubble2.collisionBoost(bubble)
         }else{
           bubble.absorb(bubble2,distance)
-          bubble.collisionBoost(bubble2)
+          // bubble.collisionBoost(bubble2)
         }
       }
     }
