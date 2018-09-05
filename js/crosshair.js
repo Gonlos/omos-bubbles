@@ -4,7 +4,7 @@ var CrossHair = function (game) {
   this.y = 0;
   this.h = 30;
   this.w = 20;
-  this.f=1;
+  this.f=2;
   this.img = new Image()
   this.img.src = "./img/crosshair.png";
   this.angle = 0;
@@ -42,8 +42,8 @@ CrossHair.prototype.move = function () {
 CrossHair.prototype.fart = function (massArg) {
   var options= {
     angle: this.angle,
-    x:this.game.bubbles[0].x + game.bubbles[0].r * Math.cos(this.angle * Math.PI / 180),
-    y:this.game.bubbles[0].y + game.bubbles[0].r * Math.sin(-this.angle * Math.PI / 180),
+    x:this.game.bubbles[0].x+ (Math.log(massArg) + 5 + game.bubbles[0].r) * Math.cos(this.angle * Math.PI / 180),
+    y:this.game.bubbles[0].y+ (Math.log(massArg) +  5 + game.bubbles[0].r) * Math.sin(-this.angle * Math.PI / 180),
     r:Math.log(massArg),
     m:massArg
   }

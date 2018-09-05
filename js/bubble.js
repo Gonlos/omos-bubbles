@@ -66,9 +66,30 @@ Bubble.prototype.boost = function(fArg, angleArg) {
   this.a = aPlayer.module / this.m;
   this.angle = aPlayer.angle;
 };
+Bubble.prototype.collisionBoost=function(bubble){
+  //m*a=m*a
+  var a1=Trig.getXY(this.a,this.angle)
+  var a2=Trig.getXY(bubble.a,bubble.angle)
+  var fx1=a1.x*this.m
+  var fy1=a1.y*this.m
+  var fx2=a2.x*bubble.m
+  var fy2=a2.y*bubble.m
+  //a1=(f1-f2)/m1 a2=(f2-f1)/m2
+  a1.x=(fx1+fx2)/this.m
+  a1.y=(fy1+fy2)/this.m
+  a2.x=(fx2+fx1)/bubble.m
+  a2.y=(fy2+fy1)/bubble.m
+  a1=Trig.getVector(a1.x,a1.y)
+  a2=Trig.getVector(a2.x,a2.y)
+  this.a=a1.module/2
+  this.angle=a1.angle
+  bubble.a=a2.module/2
+  bubble.angle=a2.angle
+
+}
 Bubble.prototype.absorb=function(bubble,distance){
-  absorcion= (distance-bubble.r-this.r)
-  console.log("absorcion",absorcion,bubble.r)
+  absorcion= (distance-bubble.r-this.r)*2
+  // console.log("absorcion",absorcion,bubble.r)
   if(absorcion<0){
     this.m-=absorcion
     bubble.m+=absorcion
