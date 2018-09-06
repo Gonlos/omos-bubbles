@@ -52,8 +52,14 @@ Bubble.prototype.draw = function() {
   var y=this.y-this.game.y
   context.moveTo(x,y);
   context.strokeStyle = this.proportionalColor();
+  context.fillStyle = this.proportionalColor()+"33";
+  
   context.beginPath();
+  context.globalCompositeOperation="lighter"
+  context.shadowBlur=5;
   context.arc(x, y, this.r, 0, Math.PI * 180, true);
+  context.fill();
+  context.arc(x, y, this.r+1, 0, Math.PI * 180, true);
   context.stroke();
   context.closePath();
 };

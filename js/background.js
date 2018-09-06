@@ -25,13 +25,13 @@ Background.prototype.draw = function () {
   var x = this.x - this.game.x;
   var y = this.y - this.game.y;
   context.putImageData(this.background,x,y,0,0,this.game.w,this.game.h);
-  // context.strokeStyle='white';
-  // context.strokeRect(x+1, y+1, this.game.w-2, this.game.h-2);
   // context.beginPath();
+  context.strokeStyle='white';
+  context.strokeRect(x+1, y+1, this.game.w-2, this.game.h-2);
   // context.moveTo(this.game.w/2+x, y);
   // context.lineTo(this.game.w/2+x, this.game.h);
-  // context.closePath();
   // context.stroke();
+  context.closePath();
   // context.beginPath();
   // context.moveTo(x, this.game.h/2+y);
   // context.lineTo(this.game.w, this.game.h/2+y);
