@@ -23,6 +23,8 @@ var Bubble = function(game, options) {
   this.y = options.y || 0;
   this.a = 0;
   this.friction = 0.01;
+  this.img=new Image();
+  this.img.src="./img/bubble.png"
 };
 Bubble.prototype.move = function() {
   this.r=Math.log(this.m)*4
@@ -51,16 +53,22 @@ Bubble.prototype.draw = function() {
   var x=this.x-this.game.x
   var y=this.y-this.game.y
   context.moveTo(x,y);
-  context.strokeStyle = this.proportionalColor();
-  context.fillStyle = this.proportionalColor()+"33";
+  try{context.drawImage(this.img, x-this.r-2, y-this.r-2,this.r*2+4, this.r*2+4);}
+  catch(e){}
+  
+  context.strokeStyle = this.proportionalColor()+"66";
+  context.fillStyle = this.proportionalColor()+"22";
   
   context.beginPath();
   context.globalCompositeOperation="lighter"
-  context.shadowBlur=5;
+  context.shadowColor=this.proportionalColor();
+  
+  context.shadowBlur=15;
   context.arc(x, y, this.r, 0, Math.PI * 180, true);
   context.fill();
   context.arc(x, y, this.r+1, 0, Math.PI * 180, true);
   context.stroke();
+  context.shadowBlur=0
   context.closePath();
 };
 Bubble.prototype.boost = function(fArg, angleArg) {

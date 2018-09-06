@@ -11,6 +11,7 @@ var Player = function (game,id) {
   this.vy = 0;
   this.a = 0;
   this.angle = 0;
+  this.img.src="./img/player.png"
   this.crossHair = new CrossHair(this);
   this.start();
 }

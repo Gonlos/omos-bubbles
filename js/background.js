@@ -14,6 +14,14 @@ Background.prototype.createBackground=function(){
       this.background.data[i+2]=random;
       this.background.data[i+3]=255;
     }else{
+      this.background.data[i]=12;
+      this.background.data[i+1]=0;
+      this.background.data[i+2]=12;
+      this.background.data[i+3]=255;
+    }
+  }
+  for(var i=0;i <this.background.data.length;i+=4){
+    if(i<this.game.w*16){
       this.background.data[i]=0;
       this.background.data[i+1]=0;
       this.background.data[i+2]=0;
