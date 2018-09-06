@@ -48,11 +48,12 @@ Bubble.prototype.move = function() {
   this.angle=a.angle;
 };
 Bubble.prototype.draw = function() {
-  context.moveTo(this.x, this.y);
-  
+  var x=this.x+this.game.x+this.game.center.x
+  var y=this.y+this.game.y+this.game.center.y
+  context.moveTo(x,y);
   context.strokeStyle = this.proportionalColor();
   context.beginPath();
-  context.arc(this.x, this.y, this.r, 0, Math.PI * 180, true);
+  context.arc(x, y, this.r, 0, Math.PI * 180, true);
   context.stroke();
   context.closePath();
 };

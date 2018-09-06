@@ -20,18 +20,19 @@ Background.prototype.createBackground=function(){
   }
 }
 Background.prototype.draw = function () {
-  
-  context.putImageData(this.background,0,0,0,0,this.game.w,this.game.h);
+  var x = this.game.x + this.game.center.x;
+  var y = this.game.y + this.game.center.y;
+  context.putImageData(this.background,x,y,0,0,this.game.w,this.game.h);
   context.strokeStyle='white';
-  context.strokeRect(10, 10, this.game.w-20, this.game.h-20);
+  context.strokeRect(x+10, y+10, this.game.w-20, this.game.h-20);
   context.beginPath();
-  context.moveTo(this.game.center.x, 0);
-  context.lineTo(this.game.center.x, this.game.h);
+  context.moveTo(this.game.center.x+x, y);
+  context.lineTo(this.game.center.x+x, this.game.h);
   context.closePath();
   context.stroke();
   context.beginPath();
-  context.moveTo(0, this.game.center.y);
-  context.lineTo(this.game.w, this.game.center.y);
+  context.moveTo(x, this.game.center.y+y);
+  context.lineTo(this.game.w, this.game.center.y+y);
   context.closePath();
   context.stroke();
   

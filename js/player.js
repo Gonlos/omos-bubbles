@@ -11,7 +11,7 @@ var Player = function (game,id) {
   this.vy = 0;
   this.a = 0;
   this.angle = 0;
-  this.crossHair = new CrossHair(game);
+  this.crossHair = new CrossHair(this);
   this.start();
 }
 Player.prototype=Object.create(Bubble.prototype);
@@ -23,8 +23,6 @@ Player.prototype.fart = function () {
   }
   this.crossHair.fart(volume);
   this.m-=volume
-  // this.r-=volume
-  console.log(this.a)
 }
 Player.prototype.start=function(){
   this.game.canvas.addEventListener("click",function(e){
