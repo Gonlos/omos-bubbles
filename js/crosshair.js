@@ -1,5 +1,6 @@
-var CrossHair = function (game) {
-  this.game = game
+var CrossHair = function (player) {
+  this.game = player.game
+  this.player = player
   this.x = 0;
   this.y = 0;
   this.h = 30;
