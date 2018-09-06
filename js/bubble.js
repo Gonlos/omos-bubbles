@@ -25,7 +25,7 @@ var Bubble = function(game, options) {
   this.friction = 0.01;
 };
 Bubble.prototype.move = function() {
-  this.r=Math.log(this.m)*2
+  this.r=Math.log(this.m)*4
   var a;
   this.a -= this.a*this.friction;
   this.vx -= this.vx*this.friction/2;
@@ -124,6 +124,5 @@ Bubble.prototype.proportionalColor=function(){
     g="00"
     b="00"
   }
-  // console  .log("#"+r+g+b)
   return "#"+r+g+b;
 }

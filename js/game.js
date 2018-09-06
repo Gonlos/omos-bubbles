@@ -27,14 +27,19 @@ Game.prototype.start = function () {
   this.intervalID = setInterval(function () {
     var now = new Date();
     if (now.getTime() - this.time.getTime() > 30000) {
-      this.stop()
+      // this.stop()
     }
     this.moveAll();
     this.drawAll();
+    if(this.isWin()){
+      console.log("winnnnn")
+      this.win()
+    };
   }.bind(this), 1000 / 60)
 }
 Game.prototype.stop = function () {
   clearInterval(this.intervalID)
+  this.canvas.classList=""
 }
 Game.prototype.reset = function () {
   this.bubbles = [];
@@ -75,6 +80,7 @@ Game.prototype.moveBubbles = function () {
 }
 Game.prototype.collisions = function () {
   this.totalSize = 0
+  this.bigest=null
   for (var i = 0; i < this.bubbles.length; i++) {
     var bubble = this.bubbles[i]
     this.totalSize += bubble.m
@@ -93,8 +99,13 @@ Game.prototype.collisions = function () {
     }
   }
   this.bubbles = this.bubbles.filter(function (bubble) {
+      if(bubble.__proto__.constructor.name=="Player"&&bubble.r<=0){
+        console.log(bubble.r,"Game over")
+        this.stop()
+        this.gameOver()
+      }
     return bubble.r > 0
-  })
+  }.bind(this))
 }
 Game.prototype.move = function () {
   
@@ -102,11 +113,6 @@ Game.prototype.move = function () {
 }
 Game.prototype.followPlayer = function () {
   if (this.bubbles[0].__proto__.constructor.name == "Player") {
-    // para si this.x< -canvas.width || thix<-this.w
-    // this.y< -this.h this.y< -canvas.heigth
-    // this.x=(this.x<-this.w)?-this.w:this.x;
-    // this.y=(this.y<-this.h)?-this.h:this.y;
-    // if(this.bubbles[0].x-)
     if(this.bubbles[0].x<this.center.x){
       this.x=0
     }else if(this.bubbles[0].x>this.w-this.center.x){
@@ -126,5 +132,22 @@ Game.prototype.followPlayer = function () {
     this.y = 0;
 
   }
-  console.log(this.bubbles[0].x, this.y, this.w, this.h, this.offsetX, this.offsetY)
+  // console.log(this.bubbles[0].x, this.y, this.w, this.h, this.offsetX, this.offsetY)
+}
+Game.prototype.gameOver=function(){
+  
+  console.log(document.getElementById("intro").getElementsByTagName('p'))
+  document.getElementById("intro").getElementsByTagName('p')[0].innerHTML="GAME OVER. TRY AGAIN"
+}
+Game.prototype.isWin=function(){
+  let bubbles=this.bubbles.slice()
+  bubbles=bubbles.sort(function(a,b){return b.m-a.m})
+console.log(bubbles[0].__proto__.constructor.name=="Player",bubbles[0].m)
+   return bubbles[0].__proto__.constructor.name=="Player"
+}
+Game.prototype.win=function(){
+  console.log("funcion wiiiiiii")
+  this.stop()
+  document.getElementById("intro").getElementsByTagName('p')[0].innerHTML="YOU ARE BIGGEST!!!!. PLAY AGAIN"
+
 }

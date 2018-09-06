@@ -1,7 +1,11 @@
 $main-color:rgba(0,0,0,.75);
 $accent-color:white;
-
+$font-family: 'Roboto', sans-serif;
 body,html{
+  font-family:$font-family;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 40px;
   margin:0;
   padding:0;
   color:$accent-color;
@@ -21,6 +25,7 @@ canvas.full{
 }
 #intro{
   background-color:$main-color;
+  background-image: url("../img/background.png");
   display:flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -40,14 +45,16 @@ canvas.full{
   align-items: center;
   apadding:100px;
   text-align:center;
-  border:1px solid $accent-color;
+  aborder:1px solid $accent-color;
   width: 75%;
   height: 50%;
 }
 button{
   color: $accent-color;
-  padding:30px 60px;
+  padding:30px 60px 60px;
   border:1px solid $accent-color;
   background-color: $main-color;
-  
+  font-size: 30px;
+  text-align: center;
+
 }
