@@ -2,8 +2,8 @@
 var Player = function (game,id) {
   Bubble.call(this,game,id)
   this.game=game
-  this.x = this.game.center.x;
-  this.y = this.game.center.y;
+  this.x = this.game.w/2;
+  this.y = this.game.h/2;
   this.r = 2000;
   this.m = this.r;
   this.r=Math.log(this.m)*2

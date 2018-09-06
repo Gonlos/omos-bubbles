@@ -32,7 +32,7 @@ CrossHair.prototype.draw = function () {
 }
 CrossHair.prototype.move = function () {
   this.position = { x: this.mouse.x - this.game.canvas.offsetLeft, y: this.mouse.y - this.game.canvas.offsetTop } //onmousemove document
-  this.direction = { x: this.game.bubbles[0].x+this.game.x+this.game.center.x, y: this.game.bubbles[0].y+this.game.y+this.game.center.y }
+  this.direction = { x: this.game.bubbles[0].x-this.game.x, y: this.game.bubbles[0].y-this.game.y }
 
   this.distance = Math.sqrt((this.position.x - this.direction.x) ** 2 + (this.position.y - this.direction.y) ** 2)
   this.distance = (this.distance >= this.game.bubbles[0].r + this.offset) ? 0 : this.game.bubbles[0].r - this.distance + this.offset;

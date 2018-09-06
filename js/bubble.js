@@ -48,8 +48,8 @@ Bubble.prototype.move = function() {
   this.angle=a.angle;
 };
 Bubble.prototype.draw = function() {
-  var x=this.x+this.game.x+this.game.center.x
-  var y=this.y+this.game.y+this.game.center.y
+  var x=this.x-this.game.x
+  var y=this.y-this.game.y
   context.moveTo(x,y);
   context.strokeStyle = this.proportionalColor();
   context.beginPath();

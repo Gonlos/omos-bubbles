@@ -1,17 +1,23 @@
 var Game = function () {
   this.canvas = document.getElementById("game");
   this.context = canvas.getContext("2d");
-  this.zoom = 2;
+  this.zoom = 1;
   this.canvas.width = window.innerWidth;
   this.canvas.height = window.innerHeight;
-  this.w = this.canvas.width * this.zoom;
-  this.h = this.canvas.height * this.zoom;
-  this.offsetX = (this.w - this.canvas.width) / 2;
-  this.offsetY = (this.h - this.canvas.height) / 2;
+  this.w = this.canvas.width *2;
+  this.h = this.canvas.height *2;
+  this.offsetX = this.w - this.canvas.width;
+  this.offsetY = this.h - this.canvas.height;
   this.center = {
-    x: this.canvas.width / 2 + this.offsetX,
-    y: this.canvas.height / 2 + this.offsetY
+    x: this.canvas.width / 2 ,
+    y: this.canvas.height / 2
   }
+  /*
+    posicion canvas = a posicion jugador - mitad canvas
+    minima posicion 0
+    se dibujan las burbujas con su posicion menos posicion canvas
+  
+  */
   this.x = 0
   this.y = 0;
   this.reset();
@@ -91,31 +97,29 @@ Game.prototype.collisions = function () {
   })
 }
 Game.prototype.move = function () {
-  this.w = this.canvas.width * this.zoom;
-  this.h = this.canvas.height * this.zoom;
-  this.offsetX = (this.w - this.canvas.width) / 2;
-  this.offsetY = (this.h - this.canvas.height) / 2;
-  this.center = {
-    x: this.canvas.width / 2 + this.offsetX,
-    y: this.canvas.height / 2 + this.offsetY
-  }
+  
+
 }
 Game.prototype.followPlayer = function () {
-  this.w = this.canvas.width * this.zoom;
-  this.h = this.canvas.height * this.zoom;
   if (this.bubbles[0].__proto__.constructor.name == "Player") {
     // para si this.x< -canvas.width || thix<-this.w
     // this.y< -this.h this.y< -canvas.heigth
     // this.x=(this.x<-this.w)?-this.w:this.x;
     // this.y=(this.y<-this.h)?-this.h:this.y;
     // if(this.bubbles[0].x-)
-    if ((this.bubbles[0].x > this.offsetX&&this.bubbles[0].x<this.w-this.offsetX )|| this.x == 0) {
-
-      this.x = -this.bubbles[0].x - this.offsetX 
+    if(this.bubbles[0].x<this.center.x){
+      this.x=0
+    }else if(this.bubbles[0].x>this.w-this.center.x){
+      this.x=this.offsetX
+    }else{
+      this.x = this.bubbles[0].x - this.center.x 
     }
-    if ((this.bubbles[0].y > this.offsetY&&this.bubbles[0].y<this.h-this.offsetY )|| this.y == 0) {
-
-      this.y = -this.bubbles[0].y - this.offsetY 
+    if(this.bubbles[0].y<this.center.y){
+      this.y=0
+    }else if(this.bubbles[0].y>this.h-this.center.y){
+      this.y=this.offsetY
+    }else{
+      this.y = this.bubbles[0].y - this.center.y 
     }
   } else {
     this.x = 0;
