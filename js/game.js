@@ -108,18 +108,19 @@ Game.prototype.followPlayer = function () {
     // this.y< -this.h this.y< -canvas.heigth
     // this.x=(this.x<-this.w)?-this.w:this.x;
     // this.y=(this.y<-this.h)?-this.h:this.y;
-    if ((this.x < -this.canvas.width-this.offsetX/(this.zoom) && this.x >= -this.w) || this.x == 0) {
+    // if(this.bubbles[0].x-)
+    if ((this.bubbles[0].x > this.offsetX&&this.bubbles[0].x<this.w-this.offsetX )|| this.x == 0) {
 
-      this.x = -this.bubbles[0].x - this.offsetX //(this.zoom*2) // /this.zoom-this.center.x
+      this.x = -this.bubbles[0].x - this.offsetX 
     }
-    if ((this.y >= -this.h && this.y <= -this.canvas.height) || this.y == 0) {
+    if ((this.bubbles[0].y > this.offsetY&&this.bubbles[0].y<this.h-this.offsetY )|| this.y == 0) {
 
-      this.y = -this.bubbles[0].y - this.offsetY //(this.zoom*2) // /this.zoom-this.center.y
+      this.y = -this.bubbles[0].y - this.offsetY 
     }
   } else {
     this.x = 0;
     this.y = 0;
 
   }
-  console.log(this.x, this.y, this.w, this.h, this.canvas.width, this.canvas.height)
+  console.log(this.bubbles[0].x, this.y, this.w, this.h, this.offsetX, this.offsetY)
 }
