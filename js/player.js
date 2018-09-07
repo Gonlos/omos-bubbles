@@ -12,6 +12,9 @@ var Player = function (game,id) {
   this.a = 0;
   this.angle = 0;
   this.img.src="./img/player.png"
+  this.audio=new Audio("./audio/fart.mp3")
+  this.audio.volume=.2
+  console.log(this.audio.volume)
   this.crossHair = new CrossHair(this);
   this.start();
 }
@@ -24,6 +27,9 @@ Player.prototype.fart = function () {
   }
   this.crossHair.fart(volume);
   this.m-=volume
+  this.audio.play()
+  this.audio=new Audio("./audio/fart.mp3")
+  this.audio.volume=.2
 }
 Player.prototype.start=function(){
   this.game.canvas.addEventListener("click",function(e){

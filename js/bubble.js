@@ -27,11 +27,11 @@ var Bubble = function(game, options) {
   this.img.src="./img/bubble.png"
 };
 Bubble.prototype.move = function() {
-  this.r=Math.log(this.m)*4
+  this.r=Math.log(this.m)*6
   var a;
   this.a -= this.a*this.friction;
-  this.vx -= this.vx*this.friction/2;
-  this.vy -= this.vy*this.friction/2;
+  this.vx -= this.vx*this.friction/10;
+  this.vy -= this.vy*this.friction/10;
   a=Trig.getXY(this.a,this.angle)
   if (this.x + this.r > this.game.w || this.x - this.r < 0) {
     this.vx *= -1;
@@ -56,10 +56,10 @@ Bubble.prototype.draw = function() {
   try{context.drawImage(this.img, x-this.r-2, y-this.r-2,this.r*2+4, this.r*2+4);}
   catch(e){}
   
+  context.beginPath();
   context.strokeStyle = this.proportionalColor()+"66";
   context.fillStyle = this.proportionalColor()+"22";
   
-  context.beginPath();
   context.globalCompositeOperation="lighter"
   context.shadowColor=this.proportionalColor();
   

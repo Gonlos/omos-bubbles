@@ -1,8 +1,13 @@
 var Stage=function(game){
   this.game=game
+  this.audio=new Audio("./audio/scene.mp3")
+  this.audio.volume=1
+  this.audio.loop=true
+  this.audio.autoplay=true
   this.startStage()
 }
 Stage.prototype.startStage=function(){
+    
   enemies=[]
   for (var i = 30; i < this.game.w-30; i++) {
     for (var j= 30;j < this.game.h-30;j++)

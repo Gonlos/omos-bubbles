@@ -138,16 +138,21 @@ Game.prototype.gameOver=function(){
   
   console.log(document.getElementById("intro").getElementsByTagName('p'))
   document.getElementById("intro").getElementsByTagName('p')[0].innerHTML="GAME OVER. TRY AGAIN"
+  this.stage.audio.pause()
+  this.stage.currentTime=0
+  audio.play()
 }
 Game.prototype.isWin=function(){
   let bubbles=this.bubbles.slice()
   bubbles=bubbles.sort(function(a,b){return b.m-a.m})
-console.log(bubbles[0].__proto__.constructor.name=="Player",bubbles[0].m)
+// console.log(bubbles[0].__proto__.constructor.name=="Player",bubbles[0].m)
    return bubbles[0].__proto__.constructor.name=="Player"
 }
 Game.prototype.win=function(){
-  console.log("funcion wiiiiiii")
+  // console.log("funcion wiiiiiii")
+  this.stage.audio.pause()
+  this.stage.currentTime=0
   this.stop()
   document.getElementById("intro").getElementsByTagName('p')[0].innerHTML="YOU ARE BIGGEST!!!!. PLAY AGAIN"
-
+  audio.play()
 }
