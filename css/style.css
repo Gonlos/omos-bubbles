@@ -1,3 +1,6 @@
+a:active, a:visited {
+  color: white; }
+
 body, html {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -48,10 +51,20 @@ canvas.full {
 
 button {
   color: white;
-  padding: 30px 60px 60px;
+  border-radius: 50%;
+  padding: 46px 28px 73px;
   border: 1px solid white;
   background-color: transparent;
   font-size: 30px;
   text-align: center; }
+
+button:hover {
+  background-image: url("../img/player.png");
+  background-size: 126px 126px;
+  background-position: -3px -2px;
+  background-repeat: no-repeat;
+  text-shadow: 0px 0px 15px black;
+  border-color: transparent;
+  box-shadow: 0px 0px 10px 2px white; }
 
 /*# sourceMappingURL=style.css.map */
